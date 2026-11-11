@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103d3b">
+  <meta name="description" content="RenalCare brings kidney health assessment, clinical risk stratification, and evidence-grounded decision support together.">
+
+  <title>RenalCare | Kidney Health, Informed by Evidence</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Keep existing project styles -->
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- Homepage-specific styles -->
+  <link rel="stylesheet" href="/css/index.css">
+
+  <script src="/js/index.js" defer></script>
+</head>
+
+<body class="rc-home">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="rc-topbar">
+    <div class="rc-wrap rc-nav">
+
+      <a class="rc-logo" href="/index.html" aria-label="RenalCare home">
+        <span class="rc-logo-icon" aria-hidden="true">✳</span>
+        <span>RenalCare</span>
+      </a>
+
+      <button
+        class="rc-mobile-toggle"
+        id="rc-mobile-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="rc-nav-links">
+        Menu ☰
+      </button>
+
+      <nav class="rc-nav-links" id="rc-nav-links" aria-label="Main navigation">
+        <a href="#approach">Our approach</a>
+        <a href="#agents">AI framework</a>
+        <a href="#workflow">Workflow</a>
+
+        <!-- Interactive sign-in popup -->
+        <div class="rc-signin" id="rc-signin">
+
+          <button
+            class="rc-signin-trigger"
+            id="rc-signin-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="rc-signin-popup">
+            <span>Sign in</span>
+            <span class="rc-signin-chevron" aria-hidden="true">⌄</span>
+          </button>
+
+          <div
+            class="rc-signin-popup"
+            id="rc-signin-popup"
+            aria-label="Choose your workspace"
+            hidden>
+
+            
+            <a class="rc-signin-option" href="/reception-login.html">
+              <span class="rc-option-icon" aria-hidden="true">▤</span>
+              <span class="rc-option-copy">
+                <strong>Reception / Staff</strong>
+                <small>Patient registration and consultation queue</small>
+              </span>
+              <span class="rc-option-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="rc-signin-option" href="/doctor-login.html">
+              <span class="rc-option-icon" aria-hidden="true">✚</span>
+              <span class="rc-option-copy">
+                <strong>Doctor workspace</strong>
+                <small>Clinical review and decision support</small>
+              </span>
+              <span class="rc-option-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <div class="rc-signin-option rc-signin-unavailable">
+              <span class="rc-option-icon" aria-hidden="true">♡</span>
+              <span class="rc-option-copy">
+                <strong>Patient portal</strong>
+                <small>Not available in this demo</small>
+              </span>
+              <span class="rc-unavailable-label">Coming later</span>
+            </div>
+
+            <div class="rc-popup-footer">
+              <span class="rc-popup-status-dot" aria-hidden="true"></span>
+              Clinician-led clinical decision support
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO: KIDNEY FILTRATION BACKGROUND VIDEO -->
+    <section class="rc-hero" aria-labelledby="rc-hero-title">
+
+      
+      <video
+        class="rc-hero-video"
+        id="rc-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true">
+        <source src="/assets/renalcare-hero.mp4" type="video/mp4">
+      </video>
+
+      <div class="rc-hero-shade" aria-hidden="true"></div>
+
+      <div class="rc-wrap rc-hero-grid">
+
+        <div class="rc-hero-content">
+          <span class="rc-eyebrow">
+            Kidney health · Clinical intelligence
+          </span>
+
+          <h1 id="rc-hero-title">
+            Clearer kidney insights.
+            <em>More informed care.</em>
+          </h1>
+
+          <p class="rc-hero-copy">
+            Bringing clinical data, kidney risk assessment, and trusted
+            medical evidence together to support informed decisions—with
+            clinicians always in control.
+          </p>
+
+          <div class="rc-actions">
+            <a class="rc-btn rc-btn-primary" href="#workspaces">
+              Explore workspaces <span aria-hidden="true">↗</span>
+            </a>
+
+            <a class="rc-btn rc-btn-outline" href="#approach">
+              Discover our approach <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+
+          <p class="rc-hero-note">
+            A clinical decision-support project, not a substitute for
+            professional medical assessment.
+          </p>
+        </div>
+
+        <div class="rc-visual" aria-label="Kidney health information">
+          <div class="rc-visual-glow" aria-hidden="true"></div>
+
+          <!-- Optional transparent kidney illustration -->
+          
+          <div class="rc-float-card top" aria-hidden="true">
+            <strong>Evidence-informed</strong>
+            <span>Guideline-grounded context</span>
+          </div>
+
+          <div class="rc-float-card bottom" aria-hidden="true">
+            <strong>Clinician-led decisions</strong>
+            <span>Review before release</span>
+          </div>
+
+        
+        </div>
+      </div>
+
+      <div class="rc-hero-bottom">
+        <div class="rc-wrap rc-hero-bottom-inner">
+          <span>Agentic AI · Kidney health · Clinical decision support</span>
+          <a class="rc-scroll" href="#approach">
+            Explore the platform <i aria-hidden="true">↓</i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR APPROACH -->
+    <section class="rc-section rc-section-white" id="approach">
+      <div class="rc-wrap">
+
+        <div class="rc-section-head rc-reveal">
+          <span class="rc-kicker">A more connected workflow</span>
+
+          <h2>
+            Clinical context first.
+            <br>
+            Technology in support.
+          </h2>
+
+          <p>
+            RenalCare brings patient information, risk assessment, and
+            evidence-grounded guidance into one clinician-led workflow.
+            Every output must be interpreted in the context of available
+            measurements and clinical history.
+          </p>
+        </div>
+
+        <div class="rc-agent-grid" id="agents">
+
+          <article class="rc-agent rc-reveal">
+            <div class="rc-agent-icon" aria-hidden="true">⌕</div>
+            <h3>Clinical Data Agent</h3>
+            <p>
+              Helps identify missing, inconsistent, or implausible inputs
+              before clinical information is used for assessment.
+            </p>
+            <small>01 / VALIDATE</small>
+          </article>
+
+          <article class="rc-agent rc-reveal rc-reveal-delay-1">
+            <div class="rc-agent-icon" aria-hidden="true">◈</div>
+            <h3>Risk Assessment Agent</h3>
+            <p>
+              Organizes supported model findings and available kidney
+              measurements for clinician interpretation.
+            </p>
+            <small>02 / ASSESS</small>
+          </article>
+
+          <article class="rc-agent rc-reveal rc-reveal-delay-2">
+            <div class="rc-agent-icon" aria-hidden="true">✳</div>
+            <h3>Clinical Management Agent</h3>
+            <p>
+              Helps retrieve evidence relevant to monitoring, follow-up,
+              and clinical review, with attention to source quality.
+            </p>
+            <small>03 / INFORM</small>
+          </article>
+
+          <article class="rc-agent rc-reveal rc-reveal-delay-3">
+            <div class="rc-agent-icon" aria-hidden="true">❋</div>
+            <h3>Diet Recommendation Agent</h3>
+            <p>
+              Summarizes relevant dietary considerations for clinician
+              review, taking available patient context and laboratory
+              results into account.
+            </p>
+            <small>04 / REVIEW</small>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section class="rc-section rc-section-soft" id="workflow">
+      <div class="rc-wrap rc-work-grid">
+
+        <div class="rc-work-intro rc-reveal">
+          <span class="rc-kicker">Designed around clinical teams</span>
+
+          <h2>From patient information to a reviewed clinical picture.</h2>
+
+          <p>
+            A structured workflow helps authorized staff capture
+            information and helps clinicians review available findings.
+            Clinical outputs require appropriate verification and approval.
+          </p>
+
+          <a class="rc-btn rc-btn-primary" href="#workspaces">
+            Explore user workspaces <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="rc-work-list">
+
+          <article class="rc-work-step rc-reveal">
+            <div class="rc-step-no">01</div>
+            <div>
+              <h3>Capture and validate</h3>
+              <p>
+                Authorized staff register patients and organize available
+                clinical information for review.
+              </p>
+            </div>
+          </article>
+
+          <article class="rc-work-step rc-reveal rc-reveal-delay-1">
+            <div class="rc-step-no">02</div>
+            <div>
+              <h3>Assess the available evidence</h3>
+              <p>
+                Relevant measurements, supported risk estimates, and
+                limitations are presented for clinical interpretation.
+              </p>
+            </div>
+          </article>
+
+          <article class="rc-work-step rc-reveal rc-reveal-delay-2">
+            <div class="rc-step-no">03</div>
+            <div>
+              <h3>Review and approve</h3>
+              <p>
+                The doctor evaluates findings and decides which results
+                and guidance are appropriate to release to the patient.
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- USER WORKSPACES -->
+    <section class="rc-section rc-section-white" id="workspaces">
+      <div class="rc-wrap">
+
+        <div class="rc-section-head rc-reveal">
+          <span class="rc-kicker">Role-based access</span>
+
+          <h2>The right workspace for each role.</h2>
+
+          <p>
+            Access is based on each user's authorized role. Availability
+            of individual features depends on the project's actual
+            backend support.
+          </p>
+        </div>
+
+        <div class="rc-roles-grid">
+
+          <article class="rc-role rc-reveal">
+            <span class="rc-role-icon" aria-hidden="true">▤</span>
+            <h3>Reception / Staff</h3>
+            <p>
+              Register patients, search existing records, and organize
+              the consultation queue.
+            </p>
+            <a href="/reception-login.html">
+              Open staff sign-in <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="rc-role rc-reveal rc-reveal-delay-1">
+            <span class="rc-role-icon" aria-hidden="true">✚</span>
+            <h3>Doctor workspace</h3>
+            <p>
+              Review patient information, available kidney measurements,
+              assessment results, and evidence-grounded context.
+            </p>
+            <a href="/doctor-login.html">
+              Open doctor sign-in <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="rc-role rc-reveal rc-reveal-delay-2">
+            <span class="rc-role-icon" aria-hidden="true">♡</span>
+            <h3>Patient portal</h3>
+            <p>
+              Intended for patients to view their own results and
+              guidance after the doctor has approved and released them.
+            </p>
+            <span class="rc-disabled rc-role-disabled">
+              Not available in this demo
+            </span>
+          </article>
+
+        </div>
+
+        <div class="rc-disclaimer rc-reveal">
+          <strong>Clinical and research notice:</strong>
+          RenalCare is a clinical decision-support project. Model
+          predictions are not confirmed diagnoses. Chronic kidney
+          disease assessment requires appropriate clinical evidence,
+          including chronicity where applicable. Outputs must be
+          reviewed by a qualified clinician. Sample records used in
+          demonstrations should be clearly identified as synthetic.
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="rc-footer">
+    <div class="rc-wrap rc-footer-inner">
+
+      <div>
+        <a class="rc-logo" href="/index.html">
+          <span class="rc-logo-icon" aria-hidden="true">✳</span>
+          <span>RenalCare</span>
+        </a>
+        <p>Evidence-grounded kidney health decision support.</p>
+      </div>
+
+      <p class="rc-footer-note">
+        Research and demonstration platform. Not a replacement for
+        medical diagnosis, treatment, or professional clinical judgment.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Preserve existing application JavaScript -->
+  <script src="/js/app.js"></script>
+</body>
+</html>

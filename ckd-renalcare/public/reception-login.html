@@ -1,0 +1,334 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#073f35" />
+
+  <title>Reception Sign In | RenalCare</title>
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/css/reception-login.css" />
+</head>
+
+<body class="auth-page reception-auth rc-reception-login">
+  <a class="skip-link" href="#login-main">Skip to sign in</a>
+
+  <main class="rc-auth-layout" id="login-main">
+
+    <!-- LEFT PANEL -->
+    <aside class="rc-auth-aside" aria-label="RenalCare reception workspace">
+      <a class="rc-brand" href="/index.html" aria-label="RenalCare home">
+        <span class="rc-brand-mark" aria-hidden="true">+</span>
+        <span class="rc-brand-name">Renal<span>Care</span></span>
+      </a>
+
+      <div class="rc-aside-content">
+        <span class="rc-eyebrow">
+          <span class="rc-eyebrow-dot"></span>
+          Care starts at the front desk
+        </span>
+
+        <h2>
+          A calmer start
+          <br />
+          <span>to every visit.</span>
+        </h2>
+
+        <p>
+          Keep registration, patient arrivals, and the day’s queue moving
+          with a clear, focused workspace designed for your care team.
+        </p>
+
+        <div class="rc-aside-feature">
+          <span class="rc-feature-icon" aria-hidden="true">✓</span>
+          <span>Organized patient registration</span>
+        </div>
+
+        <div class="rc-aside-feature">
+          <span class="rc-feature-icon" aria-hidden="true">✓</span>
+          <span>A clearer view of the daily queue</span>
+        </div>
+      </div>
+
+            <!-- Decorative animated shapes -->
+      <div class="rc-auth-orb rc-orb-one" aria-hidden="true"></div>
+      <div class="rc-auth-orb rc-orb-two" aria-hidden="true"></div>
+      <div class="rc-auth-orb rc-orb-three" aria-hidden="true"></div>
+
+      <div class="rc-decoration-ring rc-ring-one" aria-hidden="true"></div>
+      <div class="rc-decoration-ring rc-ring-two" aria-hidden="true"></div>
+    </aside>
+
+    <!-- RIGHT PANEL -->
+    <section class="rc-auth-main" aria-labelledby="login-heading">
+
+      <div class="rc-auth-mobile-brand">
+        <a class="rc-brand" href="/index.html" aria-label="RenalCare home">
+          <span class="rc-brand-mark" aria-hidden="true">+</span>
+          <span class="rc-brand-name">Renal<span>Care</span></span>
+        </a>
+      </div>
+
+      <div class="rc-auth-content">
+
+        <!-- Back button -->
+        <a class="rc-back-button" href="/index.html">
+          <span class="rc-back-arrow" aria-hidden="true">←</span>
+          <span>Back to RenalCare home</span>
+        </a>
+
+        <div class="rc-auth-heading">
+          <div class="rc-workspace-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M3.5 20V8.5L12 4L20.5 8.5V20H3.5Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9 20V14H15V20M8 10H8.01M16 10H16.01"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <span class="rc-eyebrow rc-heading-eyebrow">
+            Reception workspace
+          </span>
+
+          <h1 id="login-heading">Welcome back.</h1>
+
+          <p class="rc-auth-subtitle">
+            Sign in to register arrivals and manage today’s queue.
+          </p>
+        </div>
+
+        <!-- Reception login form -->
+        <form class="rc-login-form" data-login="reception" novalidate>
+          <div class="rc-form-field">
+            <label for="identity">Staff ID or email</label>
+
+            <div class="rc-input-wrap">
+              <span class="rc-input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="8"
+                    r="3.5"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M5 20C5 16.7 8.1 14.5 12 14.5S19 16.7 19 20"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+
+              <input
+                id="identity"
+                required
+                name="identity"
+                type="text"
+                autocomplete="username"
+                placeholder="Enter your staff ID or email"
+              />
+            </div>
+          </div>
+
+          <div class="rc-form-field">
+            <label for="password">Password</label>
+
+            <div class="rc-input-wrap rc-password-wrap">
+              <span class="rc-input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect
+                    x="5"
+                    y="10"
+                    width="14"
+                    height="10"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M8 10V7A4 4 0 0 1 16 7V10"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M12 14V16"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+
+              <input
+                id="password"
+                required
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+              />
+
+              <button
+                type="button"
+                class="rc-password-toggle"
+                data-toggle-password
+                aria-pressed="false"
+                aria-label="Show password"
+              >
+                Show
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="rc-login-submit"
+            data-loading-label="Signing in…"
+            type="submit"
+          >
+            <span>Sign in to reception</span>
+            <span class="rc-submit-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <p
+            class="form-error rc-form-error"
+            role="alert"
+            aria-live="polite"
+          ></p>
+        </form>
+
+        <!-- Workspace selector -->
+        <section class="rc-workspaces" aria-labelledby="workspace-heading">
+          <div class="rc-workspaces-heading">
+            <span id="workspace-heading">Choose your workspace</span>
+            <span class="rc-workspace-divider"></span>
+          </div>
+
+          <div class="rc-workspace-grid">
+
+            <!-- Doctor workspace -->
+            <a
+              class="rc-workspace-option"
+              href="/doctor-login.html"
+              aria-label="Go to Doctor sign in"
+            >
+              <span class="rc-workspace-option-icon rc-doctor-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle
+                    cx="12"
+                    cy="7"
+                    r="3.5"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M5 20V18C5 14.7 8.1 12.5 12 12.5S19 14.7 19 18V20"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M18 5V9M16 7H20"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+
+              <span class="rc-workspace-option-title">Doctor</span>
+              <span class="rc-workspace-option-status">Sign in</span>
+            </a>
+
+            <!-- Current reception workspace -->
+            <div
+              class="rc-workspace-option rc-workspace-active"
+              aria-current="page"
+              aria-label="Current workspace: Reception and Staff"
+            >
+              <span class="rc-workspace-option-icon rc-reception-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M3.5 20V8.5L12 4L20.5 8.5V20H3.5Z"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M9 20V14H15V20M8 10H8.01M16 10H16.01"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+
+              <span class="rc-workspace-option-title">Reception</span>
+              <span class="rc-workspace-option-status">Current</span>
+            </div>
+
+            <!-- Patient portal: future workspace -->
+            <div
+              class="rc-workspace-option rc-workspace-disabled"
+              aria-disabled="true"
+              title="Patient portal coming soon"
+            >
+              <span class="rc-workspace-option-icon rc-patient-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle
+                    cx="12"
+                    cy="7.5"
+                    r="3.5"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M5 20C5 16.7 8.1 14.5 12 14.5S19 16.7 19 20"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M18.5 13.5V17.5M16.5 15.5H20.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+
+              <span class="rc-workspace-option-title">Patient</span>
+              <span class="rc-workspace-option-status">Coming soon</span>
+            </div>
+
+          </div>
+        </section>
+
+        
+
+        <p class="rc-auth-copyright">
+          © RenalCare · Clinical decision support demonstration
+        </p>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,858 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073f35">
+  <meta name="description" content="Record dated clinical observations and prepare CKD patient visits for receptionist verification and doctor review.">
+
+  <title>Clinical Data Entry | RenalCare</title>
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/css/clinical-data-entry.css">
+</head>
+
+<body class="cde-page">
+<a class="skip-link" href="#cde-main">Skip to clinical data form</a>
+
+<div class="cde-shell">
+
+  <!-- Reception sidebar -->
+  <aside class="cde-sidebar">
+    <a class="cde-brand" href="/reception-dashboard.html">
+      <span class="cde-brand-mark">+</span>
+      <span>Renal<span>Care</span></span>
+    </a>
+
+    <p class="cde-nav-label">RECEPTION WORKSPACE</p>
+
+    <nav class="cde-nav" aria-label="Reception navigation">
+      <a href="/reception-dashboard.html">
+        <span>▦</span> Dashboard
+      </a>
+
+      <a href="/patient-search.html">
+        <span>⌕</span> Patients
+      </a>
+
+      <a href="/queue-workflow.html">
+        <span>☷</span> Queue &amp; Workflow
+      </a>
+
+      <a class="active" href="/clinical-data-entry.html" aria-current="page">
+        <span>▤</span> Clinical Data Entry
+      </a>
+
+      <a href="/reports-documents.html">
+        <span>▧</span> Reports &amp; Data Readiness
+      </a>
+
+      <a href="/review-submit.html">
+        <span>➤</span> Review &amp; Submit
+      </a>
+    </nav>
+
+    <div class="cde-side-note">
+      <strong>Data quality matters</strong>
+      <p>
+        Record the measurement date and unit. Leave unavailable values blank.
+        Never estimate a laboratory result.
+      </p>
+    </div>
+
+    <button class="cde-logout" type="button" id="cde-logout">
+      ↪ Log out
+    </button>
+  </aside>
+
+  <!-- Main content -->
+  <main class="cde-main" id="cde-main">
+
+    <header class="cde-topbar">
+      <div>
+        <div class="cde-breadcrumb">
+          Reception <span>/</span> Clinical Data Entry
+        </div>
+
+        <p class="cde-kicker">
+          PATIENT INTAKE · FOLLOW-UP · DATA VERIFICATION
+        </p>
+
+        <h1>Clinical data entry</h1>
+
+        <p class="cde-subtitle">
+          Capture this visit's measurements, medical history and follow-up
+          details in the patient's longitudinal record. After saving, verify
+          the information on the Review &amp; Submit page.
+        </p>
+      </div>
+
+      <div class="cde-staff">
+        <span class="cde-avatar" id="cde-avatar">RS</span>
+
+        <span>
+          <strong id="cde-staff-name">Reception staff</strong>
+          <small>Authorized intake</small>
+        </span>
+      </div>
+    </header>
+
+    <!-- Introductory banner -->
+    <section class="cde-banner">
+      <div class="cde-banner-icon">✚</div>
+
+      <div>
+        <strong>One patient, multiple visits</strong>
+        <p>
+          Search first. Returning patients keep the same Patient ID.
+          Each visit should be associated with the correct visit date.
+        </p>
+      </div>
+
+      <div class="cde-banner-pulse">
+        <i></i> Secure workflow
+      </div>
+    </section>
+
+    <!-- Save, error and navigation messages are displayed here -->
+    <div
+      id="cde-alert"
+      class="cde-alert"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    ></div>
+
+    <form id="clinical-entry-form" novalidate>
+
+      <!-- STEP 1: Patient identity -->
+      <section
+        class="cde-card cde-step-card"
+        aria-labelledby="patient-heading"
+      >
+        <div class="cde-card-head">
+          <div class="cde-step">01</div>
+
+          <div>
+            <p class="cde-eyebrow">PATIENT IDENTITY</p>
+            <h2 id="patient-heading">Find or register patient</h2>
+            <p>Search existing records before creating a new patient record.</p>
+          </div>
+
+          <span class="cde-head-chip">Required</span>
+        </div>
+
+        <div
+          class="cde-mode-switch"
+          role="group"
+          aria-label="Patient type"
+        >
+          <button
+            type="button"
+            class="selected"
+            data-mode="existing"
+            aria-pressed="true"
+          >
+            Returning / existing patient
+          </button>
+
+          <button
+            type="button"
+            data-mode="new"
+            aria-pressed="false"
+          >
+            Register new patient
+          </button>
+        </div>
+
+        <!-- Existing patient -->
+        <div id="existing-patient-fields" class="cde-form-grid">
+
+          <label class="cde-field">
+            Search by Patient ID or name <span>*</span>
+
+            <div class="cde-search-wrap">
+              <input
+                id="patient-search"
+                type="search"
+                placeholder="Type at least 2 characters"
+                autocomplete="off"
+                aria-describedby="patient-search-help"
+              >
+
+              <button
+                type="button"
+                id="search-patient-btn"
+                class="cde-button cde-button-secondary"
+              >
+                Search
+              </button>
+            </div>
+
+            <small id="patient-search-help">
+              Select a result below to attach this visit to the correct record.
+            </small>
+
+            <div
+              id="patient-results"
+              class="cde-search-results"
+              aria-label="Patient search results"
+              hidden
+            ></div>
+          </label>
+
+          <label class="cde-field">
+            Selected Patient ID
+            <input
+              id="selected-patient-id"
+              name="study_id"
+              placeholder="Choose a search result"
+              readonly
+            >
+          </label>
+
+          <label class="cde-field">
+            Patient name
+            <input
+              id="selected-patient-name"
+              readonly
+              placeholder="Shown after selection"
+            >
+          </label>
+
+          <div
+            class="cde-wide cde-selected-note"
+            id="selected-patient-summary"
+            hidden
+          >
+            <span>✓</span>
+
+            <div>
+              <strong>Patient selected</strong>
+              <p>
+                New measurements will be saved to this patient's record.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              id="clear-patient"
+              class="cde-text-button"
+            >
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- New patient registration -->
+        <div id="new-patient-fields" class="cde-form-grid" hidden>
+
+          <label class="cde-field">
+            Full name <span>*</span>
+            <input
+              id="new-name"
+              autocomplete="name"
+              placeholder="Patient's full name"
+            >
+          </label>
+
+          <label class="cde-field">
+            Age at visit <span>*</span>
+            <input
+              id="new-age"
+              type="number"
+              min="1"
+              max="120"
+              step="1"
+              placeholder="Age in years"
+            >
+          </label>
+
+          <label class="cde-field">
+            Sex recorded for clinical calculation <span>*</span>
+            <select id="new-sex">
+              <option value="">Select</option>
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </select>
+          </label>
+
+          <label class="cde-field">
+            Reason for visit
+            <input
+              id="new-reason"
+              value="CKD screening / follow-up"
+              maxlength="180"
+            >
+          </label>
+
+          <div class="cde-wide cde-info-note">
+            <strong>Account security</strong>
+            <p>
+              The system creates a Patient ID after successful registration.
+              Patient portal credentials should be issued through the approved
+              account-activation flow. This form does not display or store
+              plain-text passwords.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2: Visit details and history -->
+      <section
+        class="cde-card cde-step-card"
+        aria-labelledby="visit-heading"
+      >
+        <div class="cde-card-head">
+          <div class="cde-step">02</div>
+
+          <div>
+            <p class="cde-eyebrow">VISIT DETAILS</p>
+            <h2 id="visit-heading">Visit and medical history</h2>
+            <p>Record information reported or verified for this encounter.</p>
+          </div>
+        </div>
+
+        <div class="cde-form-grid">
+
+          <label class="cde-field">
+            Visit date <span>*</span>
+            <input
+              id="visit-date"
+              name="visit_date"
+              type="date"
+              required
+            >
+          </label>
+
+          <label class="cde-field">
+            Reason for visit <span>*</span>
+            <select id="visit-reason" required>
+              <option value="CKD screening">CKD screening</option>
+              <option value="CKD follow-up">CKD follow-up</option>
+              <option value="Abnormal kidney test">Abnormal kidney test</option>
+              <option value="Diabetes / hypertension review">
+                Diabetes / hypertension review
+              </option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <div class="cde-wide cde-check-grid">
+
+            <label class="cde-check">
+              <input id="condition-diabetes" type="checkbox">
+              <span>
+                <b>Diabetes</b>
+                <small>Known history</small>
+              </span>
+            </label>
+
+            <label class="cde-check">
+              <input id="condition-hypertension" type="checkbox">
+              <span>
+                <b>Hypertension</b>
+                <small>Known history</small>
+              </span>
+            </label>
+
+            <label class="cde-check">
+              <input id="condition-heart" type="checkbox">
+              <span>
+                <b>Heart disease</b>
+                <small>Known history</small>
+              </span>
+            </label>
+
+            <label class="cde-check">
+              <input id="condition-family" type="checkbox">
+              <span>
+                <b>Family history of kidney disease</b>
+                <small>Reported / documented</small>
+              </span>
+            </label>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: Current ML model input measurements -->
+      <section
+        class="cde-card cde-step-card"
+        aria-labelledby="model-heading"
+      >
+        <div class="cde-card-head">
+          <div class="cde-step">03</div>
+
+          <div>
+            <p class="cde-eyebrow">SCREENING MODEL FEATURES</p>
+            <h2 id="model-heading">Measurements used by the current ML model</h2>
+            <p>
+              BMI is calculated from height and weight when both are entered.
+              Verify the units and values against the original source.
+            </p>
+          </div>
+
+          <span class="cde-head-chip cde-head-chip-teal">Model inputs</span>
+        </div>
+
+        <div class="cde-form-grid cde-lab-grid">
+
+          <label class="cde-field">
+            Systolic BP <span class="cde-unit">mmHg</span>
+            <input
+              id="lab-sbp"
+              type="number"
+              min="40"
+              max="300"
+              step="0.1"
+              placeholder="e.g. 128"
+            >
+          </label>
+
+          <label class="cde-field">
+            Diastolic BP <span class="cde-unit">mmHg</span>
+            <input
+              id="lab-dbp"
+              type="number"
+              min="20"
+              max="200"
+              step="0.1"
+              placeholder="e.g. 78"
+            >
+          </label>
+
+          <label class="cde-field">
+            BUN <span class="cde-unit">mg/dL</span>
+            <input
+              id="lab-bun"
+              type="number"
+              min="0"
+              max="300"
+              step="0.1"
+              placeholder="Blood urea nitrogen"
+            >
+          </label>
+
+          <label class="cde-field">
+            Uric acid <span class="cde-unit">mg/dL</span>
+            <input
+              id="lab-uric-acid"
+              type="number"
+              min="0"
+              max="40"
+              step="0.1"
+              placeholder="Serum uric acid"
+            >
+          </label>
+
+          <label class="cde-field">
+            Calcium <span class="cde-unit">mg/dL</span>
+            <input
+              id="lab-calcium"
+              type="number"
+              min="0"
+              max="30"
+              step="0.1"
+              placeholder="Total serum calcium"
+            >
+          </label>
+
+          <label class="cde-field">
+            Serum albumin <span class="cde-unit">g/dL</span>
+            <input
+              id="lab-albumin-serum"
+              type="number"
+              min="0"
+              max="10"
+              step="0.1"
+              placeholder="Serum albumin"
+            >
+          </label>
+
+          <label class="cde-field">
+            Height <span class="cde-unit">cm</span>
+            <input
+              id="lab-height-cm"
+              type="number"
+              min="30"
+              max="250"
+              step="0.1"
+              placeholder="For BMI calculation"
+            >
+          </label>
+
+          <label class="cde-field">
+            Weight <span class="cde-unit">kg</span>
+            <input
+              id="lab-weight-kg"
+              type="number"
+              min="1"
+              max="500"
+              step="0.1"
+              placeholder="For BMI calculation"
+            >
+          </label>
+
+        </div>
+
+        <div class="cde-bmi-preview">
+          <div class="cde-bmi-icon">↗</div>
+
+          <div>
+            <small>Calculated BMI preview</small>
+            <strong id="bmi-value">—</strong>
+            <span id="bmi-status">Enter height and weight</span>
+          </div>
+
+          <div class="cde-bmi-track">
+            <span id="bmi-bar"></span>
+          </div>
+        </div>
+
+        <p class="cde-footnote">
+          Current model inputs: age, sex, BMI, systolic and diastolic BP,
+          BUN, uric acid, calcium, serum albumin and diabetes status.
+          Missing measurements should remain missing rather than being
+          estimated. The backend model pipeline must handle missing inputs
+          as configured.
+        </p>
+      </section>
+
+      <!-- STEP 4: Kidney-specific clinical measurements -->
+      <section
+        class="cde-card cde-step-card"
+        aria-labelledby="kidney-heading"
+      >
+        <div class="cde-card-head">
+          <div class="cde-step">04</div>
+
+          <div>
+            <p class="cde-eyebrow">KIDNEY-SPECIFIC ASSESSMENT</p>
+            <h2 id="kidney-heading">Kidney function and related tests</h2>
+            <p>
+              These parameters support clinical CKD assessment. They are
+              not direct inputs to the current Random Forest screening model.
+            </p>
+          </div>
+
+          <span class="cde-head-chip cde-head-chip-purple">
+            Clinical assessment
+          </span>
+        </div>
+
+        <div class="cde-clinical-callout">
+          <strong>Why this section matters</strong>
+          <p>
+            CKD assessment considers eGFR, urine albumin-to-creatinine ratio
+            (uACR), and evidence of chronicity. A single abnormal result
+            alone may not establish CKD.
+          </p>
+        </div>
+
+        <div class="cde-form-grid cde-lab-grid">
+
+          <label class="cde-field">
+            Serum creatinine <span class="cde-unit">mg/dL</span>
+            <input
+              id="lab-creatinine"
+              type="number"
+              min="0"
+              max="50"
+              step="0.01"
+              placeholder="e.g. 1.1"
+            >
+            <small>
+              eGFR may be calculated by the backend if the required
+              demographic information is available.
+            </small>
+          </label>
+
+          <label class="cde-field">
+            eGFR <span class="cde-unit">mL/min/1.73 m²</span>
+            <input
+              id="lab-egfr"
+              type="number"
+              min="0"
+              max="200"
+              step="0.1"
+              placeholder="If reported by lab"
+            >
+          </label>
+
+          <label class="cde-field">
+            Urine ACR (uACR) <span class="cde-unit">mg/g</span>
+            <input
+              id="lab-uacr"
+              type="number"
+              min="0"
+              max="100000"
+              step="0.1"
+              placeholder="Urine albumin-to-creatinine ratio"
+            >
+          </label>
+
+          <label class="cde-field">
+            HbA1c <span class="cde-unit">%</span>
+            <input
+              id="lab-hba1c"
+              type="number"
+              min="0"
+              max="30"
+              step="0.1"
+              placeholder="Glycemic control"
+            >
+          </label>
+
+          <label class="cde-field">
+            Potassium <span class="cde-unit">mEq/L</span>
+            <input
+              id="lab-potassium"
+              type="number"
+              min="0"
+              max="20"
+              step="0.1"
+              placeholder="Serum potassium"
+            >
+          </label>
+
+          <label class="cde-field">
+            Sodium <span class="cde-unit">mEq/L</span>
+            <input
+              id="lab-sodium"
+              type="number"
+              min="0"
+              max="300"
+              step="0.1"
+              placeholder="Serum sodium"
+            >
+          </label>
+
+          <label class="cde-field">
+            Phosphorus <span class="cde-unit">mg/dL</span>
+            <input
+              id="lab-phosphorus"
+              type="number"
+              min="0"
+              max="50"
+              step="0.1"
+              placeholder="Serum phosphorus"
+            >
+          </label>
+
+        </div>
+
+        <div class="cde-chronicity-row">
+          <div class="cde-chronicity-icon">◷</div>
+
+          <div>
+            <strong>Chronicity evidence</strong>
+            <p>
+              Use previous dated results or clinician-confirmed history to
+              assess whether abnormalities persist for at least 3 months.
+              This form records visit data; it does not independently
+              confirm CKD chronicity.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 5: Medicines and follow-up -->
+      <section
+        class="cde-card cde-step-card"
+        aria-labelledby="med-heading"
+      >
+        <div class="cde-card-head">
+          <div class="cde-step">05</div>
+
+          <div>
+            <p class="cde-eyebrow">MEDICATIONS &amp; FOLLOW-UP</p>
+            <h2 id="med-heading">Current medicines and notes</h2>
+            <p>Record information reported or verified during intake.</p>
+          </div>
+        </div>
+
+        <div class="cde-form-grid">
+
+          <label class="cde-field cde-wide">
+            Current medicines
+            <span class="cde-unit">one medicine per line</span>
+
+            <textarea
+              id="medicines"
+              rows="3"
+              placeholder="Enter each reported medicine on a new line, including strength when known."
+            ></textarea>
+
+            <small>
+              Record medicines as reported. Medication decisions remain
+              with the doctor.
+            </small>
+          </label>
+
+          <label class="cde-field cde-wide">
+            Symptoms / reason / follow-up notes
+
+            <textarea
+              id="followup-notes"
+              rows="4"
+              placeholder="Symptoms reported, previous results mentioned, follow-up details, report source, or information requiring doctor attention…"
+            ></textarea>
+          </label>
+
+          <label class="cde-field cde-wide">
+            Source of measurements
+
+            <select id="measurement-source">
+              <option value="manual">
+                Entered from verified report / patient record
+              </option>
+              <option value="upload">
+                Transcribed from uploaded report
+              </option>
+              <option value="chart">
+                Existing chart / prior record
+              </option>
+            </select>
+          </label>
+
+        </div>
+      </section>
+
+      <!-- Save and continue to review -->
+      <section class="cde-review-card" aria-labelledby="save-heading">
+
+        <div>
+          <p class="cde-eyebrow">NEXT: RECEPTIONIST VERIFICATION</p>
+
+          <h2 id="save-heading">Save and review this visit</h2>
+
+          <p>
+            After saving, verify the patient identity, visit date, medical
+            history, measurements, medicines and notes on the Review &amp;
+            Submit page. Do not submit information you have not checked.
+          </p>
+
+          <div
+            class="cde-progress"
+            role="progressbar"
+            aria-label="Form readiness"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <span id="completion-bar"></span>
+          </div>
+
+          <small id="completion-text">
+            Complete patient identity and visit date to begin.
+          </small>
+        </div>
+
+        <div class="cde-submit-actions">
+          <button
+            type="button"
+            class="cde-button cde-button-secondary"
+            id="reset-form"
+          >
+            Clear form
+          </button>
+
+          <button
+            type="submit"
+            class="cde-button cde-button-primary"
+            id="save-visit"
+          >
+            <span>Save &amp; Continue to Review</span>
+            <b aria-hidden="true">→</b>
+          </button>
+        </div>
+
+      </section>
+
+    </form>
+
+    <!-- SAVE CONFIRMATION MODAL -->
+    <div
+      id="save-confirmation-modal"
+      class="cde-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="save-modal-title"
+      aria-describedby="save-modal-message"
+      hidden
+    >
+      <div class="cde-modal-backdrop"></div>
+
+      <div class="cde-modal-panel">
+        <div class="cde-modal-icon" id="save-modal-icon">✓</div>
+
+        <p class="cde-eyebrow" id="save-modal-eyebrow">
+          CLINICAL ENTRY SAVED
+        </p>
+
+        <h2 id="save-modal-title">Visit saved successfully</h2>
+
+        <p id="save-modal-message">
+          The backend has confirmed that the clinical entry was saved.
+        </p>
+
+        <div class="cde-modal-details">
+          <div>
+            <span>Patient ID</span>
+            <strong id="save-modal-patient-id">—</strong>
+          </div>
+
+          <div>
+            <span>Visit ID</span>
+            <strong id="save-modal-visit-id">—</strong>
+          </div>
+
+          <div>
+            <span>Next step</span>
+            <strong>Receptionist verification</strong>
+          </div>
+        </div>
+
+        <p class="cde-modal-note">
+          Saving is complete, but this visit has not yet been submitted
+          for doctor review. On the next page, verify the saved information
+          and explicitly submit it when everything is correct.
+        </p>
+
+        <div class="cde-modal-actions">
+          <button
+            type="button"
+            id="save-modal-stay"
+            class="cde-button cde-button-secondary"
+          >
+            Stay on this page
+          </button>
+
+          <button
+            type="button"
+            id="save-modal-review"
+            class="cde-button cde-button-primary"
+          >
+            Review &amp; Submit →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="cde-footer">
+      <span>RenalCare · CKD clinical decision-support system</span>
+      <span>Reception records and verifies data; doctors make clinical decisions.</span>
+    </footer>
+
+  </main>
+</div>
+
+<!-- Load each script only once -->
+<script src="/js/api.js"></script>
+<script src="/js/clinical-data-entry.js" defer></script>
+
+</body>
+</html>

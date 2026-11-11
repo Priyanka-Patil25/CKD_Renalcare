@@ -1,0 +1,164 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#103d3b" />
+  <meta name="description" content="Secure doctor sign in for the RenalCare clinical workspace." />
+
+  <title>Doctor Sign In | RenalCare</title>
+
+  <link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/css/doctor-login.css" />
+  </head>
+
+<body class="auth-page doctor-auth">
+  <a class="skip-link" href="#login-main">Skip to sign in</a>
+
+  <main class="auth-layout" id="login-main">
+
+    <!-- Original left-side panel -->
+    <div class="auth-aside" aria-hidden="true">
+      <a class="brand" href="/index.html">
+        <span class="brand-mark">+</span>
+        <span>Renal<span>Care</span></span>
+      </a>
+
+      <div class="auth-aside-copy">
+        <span class="eyebrow">Clinical workspace</span>
+        <h2>Context for care.<br><span>Confidence in review.</span></h2>
+        <p>
+          Patient history, kidney results, and evidence support—together
+          for clinician review.
+        </p>
+      </div>
+
+   
+      <div class="auth-shape shape-one"></div>
+      <div class="auth-shape shape-two"></div>
+    </div>
+
+    <!-- Right-side login form -->
+    <section class="auth-main" aria-label="Doctor sign in">
+
+      <div class="auth-mobile-brand">
+        <a class="brand" href="/index.html">
+          <span class="brand-mark">+</span>
+          <span>Renal<span>Care</span></span>
+        </a>
+      </div>
+
+      <div class="auth-card">
+
+        <a class="back-link" href="/index.html">
+          <span aria-hidden="true">←</span>
+          Back to RenalCare home
+        </a>
+
+        <span class="eyebrow">Doctor workspace</span>
+        <h1>Welcome back.</h1>
+        <p class="muted">
+          Sign in to review the queue and clinical decision support.
+        </p>
+
+        <form data-login="doctor" novalidate>
+          <label for="identity">Doctor ID or email</label>
+          <input
+            id="identity"
+            required
+            name="identity"
+            autocomplete="username"
+            placeholder="Enter your staff ID or email"
+          />
+
+          <div class="password-label-row">
+            <label for="password">Password</label>
+          </div>
+
+          <div class="password-wrap">
+            <input
+              id="password"
+              required
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+            />
+
+            <button
+              type="button"
+              class="show-password"
+              data-toggle-password
+              aria-pressed="false">
+              Show
+            </button>
+          </div>
+
+          <button
+            class="button primary full login-submit"
+            data-loading-label="Signing in…"
+            type="submit">
+            Sign in to doctor workspace
+            <span aria-hidden="true">→</span>
+          </button>
+
+          <p class="form-error" role="alert" aria-live="polite"></p>
+        </form>
+
+        <!-- Compact workspace switcher -->
+        <section
+          class="workspace-switcher"
+          aria-labelledby="workspace-heading">
+
+          <h2 class="workspace-heading" id="workspace-heading">
+            Other workspaces
+          </h2>
+
+          <p class="workspace-subheading">
+            Choose the workspace for your role.
+          </p>
+
+          <div class="workspace-options">
+
+            <div class="workspace-option current" aria-current="page">
+              <span class="workspace-icon" aria-hidden="true">✚</span>
+              <span class="workspace-copy">
+                <strong>Doctor</strong>
+                <small>Clinical review and decision support</small>
+              </span>
+              <span class="workspace-current-label">Current</span>
+            </div>
+
+            <a class="workspace-option" href="/reception-login.html">
+              <span class="workspace-icon" aria-hidden="true">▤</span>
+              <span class="workspace-copy">
+                <strong>Reception / Staff</strong>
+                <small>Patient registration and queue</small>
+              </span>
+              <span class="workspace-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <div
+              class="workspace-option unavailable"
+              aria-disabled="true"
+              title="Patient portal is not available in this demo">
+              <span class="workspace-icon" aria-hidden="true">♡</span>
+              <span class="workspace-copy">
+                <strong>Patient portal</strong>
+                <small>Doctor-approved results and guidance</small>
+              </span>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Preserve existing authentication functionality -->
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

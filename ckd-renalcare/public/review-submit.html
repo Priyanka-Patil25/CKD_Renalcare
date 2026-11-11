@@ -1,0 +1,358 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073f35">
+  <title>Review & Submit | RenalCare</title>
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/css/review-submit.css">
+</head>
+
+<body class="rc-review-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="rd-shell">
+    <aside class="rd-sidebar" id="rd-sidebar" aria-label="Reception navigation">
+      <a class="rd-brand" href="/index.html" aria-label="RenalCare home">
+        <span class="rd-brand-mark" aria-hidden="true">+</span>
+        <span>Renal<span>Care</span></span>
+      </a>
+
+      <div class="rd-workspace-label">RECEPTION WORKSPACE</div>
+
+      <nav class="rd-nav">
+        <a class="rd-nav-link" href="/reception.html">
+          <span class="rd-nav-icon">▦</span><span>Dashboard</span>
+        </a>
+        <a class="rd-nav-link" href="/patient-search.html">
+          <span class="rd-nav-icon">⌕</span><span>Patients</span>
+        </a>
+       <a class="rd-nav-link" href="/queue-workflow.html">
+          <span>☷</span> Queue &amp; Workflow
+        </a>
+           
+       <a class="rd-nav-link" href="/clinical-data-entry.html">
+          <span class="rd-nav-icon">▤</span><span>Clinical data entry</span>
+        </a>
+        <a class="rd-nav-link" href="/reports-documents.html">
+          <span class="rd-nav-icon">▧</span><span>Reports &amp; documents</span>
+        </a>
+        <a class="rd-nav-link is-active" href="/review-submit.html" aria-current="page">
+          <span class="rd-nav-icon">✓</span><span>Review &amp; submit</span>
+        </a>
+      </nav>
+
+      <div class="rd-sidebar-help">
+        <span class="rd-help-icon">?</span>
+        <div>
+          <strong>Need a hand?</strong>
+          <p>Verify patient identity and visit details before submission.</p>
+        </div>
+      </div>
+
+      <a class="rd-signout" href="/reception-login.html">
+        <span aria-hidden="true">↪</span> Sign out
+      </a>
+    </aside>
+
+    <div class="rd-overlay" id="rd-overlay" hidden></div>
+
+    <div class="rd-main-column">
+      <header class="rd-topbar">
+        <button class="rd-menu-toggle" id="rd-menu-toggle"
+                type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+        <div class="rd-breadcrumb">
+          <a href="/reception-dashboard.html">Workspace</a>
+          <span aria-hidden="true">/</span>
+          <strong id="breadcrumbCurrent">Review &amp; Submit</strong>
+        </div>
+
+        <div class="rd-topbar-right">
+          <form class="rd-top-search" id="topSearchForm" role="search">
+            <span aria-hidden="true">⌕</span>
+            <input id="patientSearchInput" type="search"
+                   placeholder="Search patient ID or name"
+                   aria-label="Search patient ID or name">
+            <button type="submit">Search</button>
+          </form>
+
+          <div class="rd-profile">
+            <span class="rd-avatar" aria-hidden="true">RS</span>
+            <span class="rd-profile-copy">
+              <strong>Reception staff</strong>
+              <small>Front desk</small>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <main class="rd-content" id="main-content">
+        <section class="rv-welcome">
+          <div>
+            <span class="rv-eyebrow"><span class="rv-live-dot"></span> RECEPTION WORKSPACE</span>
+            <h1 id="pageTitle">Review &amp; Submit</h1>
+            <p id="pageSubtitle">Find the correct patient and review the saved visit before submitting it for doctor review.</p>
+          </div>
+          <div class="rv-welcome-icon" aria-hidden="true">
+            <span>✓</span>
+            <i></i>
+          </div>
+        </section>
+
+        <div class="rv-alert" id="pageAlert" role="alert" hidden></div>
+        <div class="rv-toast" id="toastMessage" role="status" aria-live="polite" hidden></div>
+
+        <!-- VIEW 1: PATIENT DIRECTORY -->
+        <section id="patientListView" class="rv-view" aria-labelledby="listHeading">
+          <div class="rv-section-heading">
+            <div>
+              <span class="rv-step-label">PATIENT RECORDS</span>
+              <h2 id="listHeading">Find a patient to review</h2>
+              <p>Choose the correct patient and visit. Use the patient ID to avoid selecting the wrong record.</p>
+            </div>
+            <button class="rv-button rv-button-light" id="refreshListButton" type="button">
+              <span aria-hidden="true">↻</span> Refresh list
+            </button>
+          </div>
+
+          <div class="rv-list-toolbar">
+            <label class="rv-search-field">
+              <span aria-hidden="true">⌕</span>
+              <input id="listSearchInput" type="search"
+                     placeholder="Filter loaded patients by name or ID"
+                     aria-label="Filter patients">
+            </label>
+            <span class="rv-count" id="patientCount">Loading patients…</span>
+          </div>
+
+          <div class="rv-loading" id="listLoading">
+            <span class="rv-spinner"></span>
+            <strong>Loading patient records</strong>
+            <p>Retrieving available records from the application API.</p>
+          </div>
+
+          <div class="rv-patient-grid" id="patientGrid"></div>
+
+          <div class="rv-empty" id="listEmpty" hidden>
+            <span class="rv-empty-icon" aria-hidden="true">⌕</span>
+            <h3 id="emptyTitle">No patient records found</h3>
+            <p id="emptyDescription">When records are returned by the backend, you can select a patient here.</p>
+            <a class="rv-button rv-button-primary" href="/patient-search.html">Go to Patient Search</a>
+          </div>
+        </section>
+
+        <!-- VIEW 2: SELECTED PATIENT -->
+        <section id="patientDetailView" class="rv-view" hidden>
+          <div class="rv-detail-toolbar">
+            <button class="rv-button rv-button-light" id="backToListButton" type="button">
+              <span aria-hidden="true">←</span> All patients
+            </button>
+
+            <div class="rv-toolbar-actions">
+              <button class="rv-button rv-button-light" id="refreshDetailButton" type="button">
+                <span aria-hidden="true">↻</span> Refresh record
+              </button>
+              <a class="rv-button rv-button-primary" id="editInformationButton"
+                 href="/clinical-data-entry.html">
+                <span aria-hidden="true">✎</span> Edit information
+              </a>
+            </div>
+          </div>
+
+          <section class="rv-patient-hero">
+            <div class="rv-patient-avatar" id="patientInitials" aria-hidden="true">P</div>
+            <div class="rv-patient-heading">
+              <span class="rv-eyebrow">SELECTED PATIENT</span>
+              <h2 id="detailPatientName">Loading patient…</h2>
+              <div class="rv-identity-line">
+                <span>Patient ID: <strong id="detailPatientId">—</strong></span>
+                <span>Visit ID: <strong id="detailVisitId">—</strong></span>
+              </div>
+              <p id="detailVisitSummary">Review the saved visit information below.</p>
+            </div>
+            <span class="rv-status-badge" id="visitStatusBadge">Status unavailable</span>
+          </section>
+
+          <div class="rv-progress-strip">
+            <div class="rv-progress-labels">
+              <span><strong id="completionPercent">—</strong> record completeness</span>
+              <span id="completionText">Checking required information</span>
+            </div>
+            <div class="rv-progress-track" role="progressbar"
+                 aria-label="Record field completeness" aria-valuemin="0"
+                 aria-valuemax="100" aria-valuenow="0" id="completionProgress">
+              <span id="completionBar"></span>
+            </div>
+            <p class="rv-help-text">Completeness is a data-entry indicator, not a CKD risk score or diagnosis.</p>
+          </div>
+
+          <div class="rv-detail-layout">
+            <div class="rv-detail-main">
+              <section class="rv-panel" id="identityPanel">
+                <div class="rv-panel-heading">
+                  <span class="rv-panel-icon">♙</span>
+                  <div><h3>1. Patient &amp; visit information</h3><p>Confirm identity and the current encounter.</p></div>
+                  <span class="rv-section-status" id="identityStatus">Checking</span>
+                </div>
+                <div class="rv-data-grid">
+                  <div class="rv-data-item"><span>Patient name</span><strong id="vName">—</strong></div>
+                  <div class="rv-data-item"><span>Patient ID</span><strong id="vPatientId">—</strong></div>
+                  <div class="rv-data-item"><span>Age</span><strong id="vAge">—</strong></div>
+                  <div class="rv-data-item"><span>Sex</span><strong id="vSex">—</strong></div>
+                  <div class="rv-data-item"><span>Visit date</span><strong id="vVisitDate">—</strong></div>
+                  <div class="rv-data-item"><span>Visit reason</span><strong id="vVisitReason">—</strong></div>
+                </div>
+              </section>
+
+              <section class="rv-panel">
+                <div class="rv-panel-heading">
+                  <span class="rv-panel-icon">♡</span>
+                  <div><h3>2. Medical history &amp; risk factors</h3><p>Review the history recorded for this visit.</p></div>
+                  <span class="rv-section-status" id="historyStatus">Checking</span>
+                </div>
+                <div class="rv-data-grid">
+                  <div class="rv-data-item"><span>Diabetes</span><strong id="vDiabetes">—</strong></div>
+                  <div class="rv-data-item"><span>Hypertension</span><strong id="vHypertension">—</strong></div>
+                  <div class="rv-data-item"><span>Heart disease</span><strong id="vHeartDisease">—</strong></div>
+                  <div class="rv-data-item"><span>Family history of kidney disease</span><strong id="vFamilyHistory">—</strong></div>
+                </div>
+              </section>
+
+              <section class="rv-panel">
+                <div class="rv-panel-heading">
+                  <span class="rv-panel-icon">⌁</span>
+                  <div><h3>3. Clinical measurements &amp; laboratory results</h3><p>Check the recorded values, units, dates and source.</p></div>
+                  <span class="rv-section-status" id="measurementStatus">Checking</span>
+                </div>
+                <div class="rv-table-wrap">
+                  <table class="rv-table">
+                    <thead><tr>
+                      <th>Measurement / test</th><th>Value</th><th>Unit</th><th>Test date</th><th>Status</th>
+                    </tr></thead>
+                    <tbody id="measurementsBody">
+                      <tr><td colspan="5">Loading saved measurements…</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="rv-help-text">A missing result must not be interpreted as normal. Review suspicious values against their source report.</p>
+              </section>
+
+              <section class="rv-panel">
+                <div class="rv-panel-heading">
+                  <span class="rv-panel-icon">▤</span>
+                  <div><h3>4. Medicines &amp; visit notes</h3><p>Review medicines, symptoms, intake notes and follow-up details.</p></div>
+                  <span class="rv-section-status" id="notesStatus">Checking</span>
+                </div>
+                <h4 class="rv-subheading">Medicines recorded for this visit</h4>
+                <div id="medicinesList" class="rv-medicine-list">
+                  <p class="rv-muted">No medicine information loaded.</p>
+                </div>
+                <div class="rv-notes-grid">
+                  <div class="rv-note-box"><span>Symptoms / visit notes</span><p id="vNotes">—</p></div>
+                  <div class="rv-note-box"><span>Medicine intake notes</span><p id="vIntakeNotes">—</p></div>
+                  <div class="rv-note-box"><span>Follow-up details</span><p id="vFollowup">—</p></div>
+                </div>
+              </section>
+
+              <section class="rv-panel">
+                <div class="rv-panel-heading">
+                  <span class="rv-panel-icon">✓</span>
+                  <div><h3>5. Validation &amp; submission</h3><p>Resolve errors and confirm the state of the saved record.</p></div>
+                </div>
+                <div class="rv-validation-summary" id="validationSummary">
+                  <strong id="validationCount">Checking…</strong>
+                  <span id="validationMessage">Reviewing required fields and available values.</span>
+                </div>
+                <ul class="rv-issue-list" id="validationList"></ul>
+
+                <div class="rv-status-grid">
+                  <div><span>Database status</span><strong id="databaseStatus">Not verified</strong></div>
+                  <div><span>Doctor review status</span><strong id="doctorStatus">Not submitted</strong></div>
+                </div>
+
+                <p class="rv-safety-note">
+                  Reception staff verify and organize information. A doctor must review clinical findings and approve clinical decisions.
+                </p>
+              </section>
+
+              <section class="rv-confirm-panel">
+                <label class="rv-confirm-check">
+                  <input type="checkbox" id="confirmAccuracy">
+                  <span><strong>I have checked the patient and visit information.</strong>
+                    <small>This confirms that I reviewed the displayed record. It does not certify a diagnosis.</small></span>
+                </label>
+                <div class="rv-submit-actions">
+                  <a class="rv-button rv-button-light" id="editBottomButton" href="/clinical-data-entry.html">✎ Edit information</a>
+                  <button class="rv-button rv-button-primary" id="submitForReviewButton" type="button" disabled>
+                    Submit for doctor review →
+                  </button>
+                </div>
+                <p class="rv-help-text" id="submitHelp">Confirm the record after reviewing the information.</p>
+              </section>
+            </div>
+
+            <!-- Actual uploaded report / image preview -->
+            <aside class="rv-document-panel">
+              <div class="rv-panel-heading">
+                <span class="rv-panel-icon">▧</span>
+                <div><h3>Original report</h3><p>Compare the saved information with its source.</p></div>
+              </div>
+
+              <div class="rv-document-preview" id="documentPreview">
+                <div class="rv-document-placeholder" id="documentPlaceholder">
+                  <span aria-hidden="true">▧</span>
+                  <strong>No report preview available</strong>
+                  <p>The API did not return a stored document URL for this visit.</p>
+                </div>
+                <img id="documentImage" alt="Original uploaded patient report" hidden>
+                <iframe id="documentPdf" title="Original uploaded PDF report" hidden></iframe>
+              </div>
+
+              <div class="rv-document-meta" id="documentMeta" hidden>
+                <strong id="documentName">Uploaded report</strong>
+                <span id="documentDate"></span>
+                <a id="openOriginalDocument" href="#" target="_blank" rel="noopener noreferrer">Open original document ↗</a>
+              </div>
+
+              <p class="rv-help-text">Only the actual file associated with this patient/visit should be shown here.</p>
+              <a class="rv-button rv-button-light rv-full-button" href="/reports-documents.html">Manage reports &amp; documents</a>
+            </aside>
+          </div>
+        </section>
+
+        <footer class="rd-footer">
+          <span>© RenalCare · Clinical decision support demonstration</span>
+          <span>Protect patient confidentiality at all times.</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- Submission confirmation -->
+  <div class="rv-modal-backdrop" id="submitModal" hidden>
+    <section class="rv-modal" role="dialog" aria-modal="true"
+             aria-labelledby="submitModalTitle" aria-describedby="submitModalDescription">
+      <div class="rv-modal-icon">✓</div>
+      <h2 id="submitModalTitle">Submit this visit for doctor review?</h2>
+      <p id="submitModalDescription">The saved visit will be sent to the configured doctor-review workflow.</p>
+      <div class="rv-modal-patient">
+        <span>Patient</span><strong id="modalPatientName">—</strong>
+        <span>Patient ID</span><strong id="modalPatientId">—</strong>
+        <span>Visit ID</span><strong id="modalVisitId">—</strong>
+      </div>
+      <p class="rv-modal-warning">This action does not mean the doctor has reviewed or approved the record.</p>
+      <div class="rv-modal-actions">
+        <button class="rv-button rv-button-light" type="button" id="cancelSubmitButton">Cancel</button>
+        <button class="rv-button rv-button-primary" type="button" id="confirmSubmitButton">Confirm submission</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/review-submit.js" defer></script>
+</body>
+</html>

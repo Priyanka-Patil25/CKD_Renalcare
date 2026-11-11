@@ -1,0 +1,44 @@
+{
+  "version": "rf-nhanes1723-v1",
+  "trained_at": "2026-10-23T20:13:54",
+  "sklearn": "1.7.1",
+  "n_train": 9693,
+  "n_train_ckd": 1887,
+  "n_test": 1138,
+  "n_test_ckd": 217,
+  "features": [
+    "age",
+    "bmi",
+    "bp_systolic",
+    "bp_diastolic",
+    "blood_urea_nitrogen",
+    "uric_acid",
+    "calcium",
+    "albumin_serum",
+    "gender",
+    "diabetes_status"
+  ],
+  "watch_line": 0.1731,
+  "high_line": 0.5,
+  "test_auc": 0.821,
+  "test_pr_auc": 0.593,
+  "at_watch_line": {
+    "TP": 192,
+    "FN": 25,
+    "FP": 488,
+    "TN": 433,
+    "recall": 0.885,
+    "precision": 0.282,
+    "specificity": 0.47
+  },
+  "at_high_line": {
+    "TP": 109,
+    "FN": 108,
+    "FP": 89,
+    "TN": 832,
+    "recall": 0.502,
+    "precision": 0.551,
+    "specificity": 0.903
+  },
+  "note": "Screening only. Not for patients who already have eGFR/uACR. Scores are not probabilities."
+}

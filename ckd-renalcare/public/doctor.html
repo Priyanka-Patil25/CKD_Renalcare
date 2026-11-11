@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctor | RenalCare</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="workspace-page doctor-workspace">
+<div class="shell">
+  <aside class="sidebar">
+    <a class="brand" href="/index.html"><span class="brand-mark" aria-hidden="true">+</span><span>Renal<span>Care</span></span></a>
+    <p class="nav-label">Doctor workspace</p>
+    <button class="nav-item active" id="nav-queue" type="button" aria-controls="queue-view"><span aria-hidden="true">▦</span> Waiting queue</button>
+    <button class="nav-item" id="nav-guide" type="button" aria-controls="rag-form"><span aria-hidden="true">⌕</span> Guideline assistant</button>
+    <button class="nav-item" id="nav-pipeline" type="button" aria-controls="pipeline-panel"><span aria-hidden="true">◈</span> Agent workspace</button>
+    <button class="nav-item" id="nav-agent" type="button" aria-controls="agent-panel"><span aria-hidden="true">✦</span> Agent briefing</button>
+    <button class="nav-item" id="nav-labs" type="button" aria-controls="lab-panel"><span aria-hidden="true">▤</span> Lab report reader</button>
+    <div class="side-bottom"><span class="user-avatar" aria-hidden="true">D</span><span id="who">Doctor</span><span class="side-demo">Clinical review workspace</span><a class="small-link" href="#" id="logout">Log out</a></div>
+  </aside>
+  <main class="main" id="workspace-main">
+    <header class="topline workspace-topline">
+      <a class="brand" href="/index.html"><span class="brand-mark" aria-hidden="true">+</span><span>Renal<span>Care</span></span></a>
+      <span class="status">Doctor · Synthetic demo data</span>
+    </header>
+
+    <section id="queue-view">
+      <div class="page-title topline">
+        <div><span class="eyebrow">Doctor workspace</span><h1 id="greeting">Good morning</h1><p>Review the next patient in today's waiting queue.</p></div>
+        <button class="button primary" id="next-patient" type="button">Open next patient <span aria-hidden="true">→</span></button>
+      </div>
+      <section class="panel">
+        <div class="section-head"><div><h2>Waiting queue</h2><p>Stage and open alerts are worked out from each patient's full history</p></div></div>
+        <div id="queue-status" class="inline-status" role="status" aria-live="polite"></div>
+        <div id="doctor-queue" aria-live="polite" aria-busy="true"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head"><div><h2>How this workspace helps you</h2><p>Each step is separate, so you can see where every suggestion comes from. You make every decision.</p></div></div>
+        <ol class="flow-steps">
+          <li><span class="flow-num">1</span><strong>Screening model</strong><small>Random forest on NHANES. For patients with no kidney labs: should we test?</small></li>
+          <li><span class="flow-num">2</span><strong>KDIGO rules</strong><small>eGFR (CKD-EPI 2021), G and A stage, risk grid, check frequency from Figure 13.</small></li>
+          <li><span class="flow-num">3</span><strong>Care gaps</strong><small>Rule-based suggestions, each with its KDIGO source. Accept, edit or dismiss.</small></li>
+          <li><span class="flow-num">4</span><strong>Guideline search</strong><small>Finds the exact guideline passage and page for your question (RAG).</small></li>
+          <li><span class="flow-num">5</span><strong>Agent + checker</strong><small>Picks read-only tools, writes a briefing, and a separate check verifies it.</small></li>
+        </ol>
+        <div id="model-card" class="model-card" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <section id="review-view" hidden>
+      <div class="topline">
+          <button class="button secondary" id="back-queue" type="button">← Back to queue</button>
+        <span class="status" id="syn-badge">Clinical review</span>
+      </div>
+      <div class="page-title"><h1 id="patient-name"></h1><p id="patient-meta"></p></div>
+
+      <div class="summary-strip" id="summary"></div>
+
+      <div class="review-grid">
+        <div>
+          <section class="panel">
+            <div class="section-head"><div><h2>KDIGO stage and risk</h2><p>Where this patient sits on the KDIGO grid (latest eGFR and uACR)</p></div></div>
+            <div id="kdigo-grid" class="table-wrap"></div>
+            <div id="kdigo-note" class="notice" role="status" aria-live="polite"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head"><div><h2>Patient history</h2><p>All reports merged into one timeline</p></div></div>
+            <div id="labs" aria-label="Recorded laboratory results"></div>
+            <h3>eGFR</h3>
+            <div id="chart-egfr" aria-live="polite"></div>
+            <div class="two-col">
+              <div><h3>uACR (mg/g)</h3><div id="chart-uacr" aria-live="polite"></div></div>
+              <div><h3>Systolic BP (mmHg)</h3><div id="chart-sbp" aria-live="polite"></div></div>
+            </div>
+            <h3 style="margin-top: 22px">Medicines now</h3>
+            <div id="meds"></div>
+            <h3 style="margin-top: 22px">Visits and notes</h3>
+            <div id="visits"></div>
+          </section>
+
+          <section class="panel" id="lab-panel">
+            <div class="section-head"><div><h2>Lab report reader</h2><p>Paste the text of a report. The reader proposes values and shows the line each came from. Nothing is saved until you confirm.</p></div><span class="count-pill" id="lab-count"></span></div>
+            <form id="lab-form">
+              <label for="lab-text">Report text<textarea id="lab-text" rows="5" placeholder="Paste text such as:&#10;Date: 12/03/2026&#10;Serum creatinine: 1.9 mg/dL&#10;eGFR 38&#10;UACR 260 mg/g&#10;HbA1c 7.2 %"></textarea></label>
+              <div class="actions"><button class="button secondary" id="lab-sample" type="button">Use sample report</button><button class="button primary" type="submit">Read report</button></div>
+            </form>
+            <div id="lab-out" aria-live="polite"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head"><div><h2>Add results</h2><p>Enter dated measurements once. The same test on the same date is merged, never repeated.</p></div></div>
+            <p class="field-hint">Values are entered manually in this demo; original report uploads and source-document tracking are not available.</p>
+            <form id="results-form" class="form-grid" novalidate>
+              <label>Date<input type="date" name="date" required /></label>
+              <label>Creatinine (mg/dL)<input name="creatinine" type="number" min="0" step="0.01" inputmode="decimal" /></label>
+              <label>uACR (mg/g)<input name="uacr" type="number" min="0" step="0.1" inputmode="decimal" /></label>
+              <label>HbA1c (%)<input name="hba1c" type="number" min="0" max="100" step="0.1" inputmode="decimal" /></label>
+              <label>Systolic BP (mmHg)<input name="sbp" type="number" min="0" max="400" inputmode="numeric" /></label>
+              <label>Diastolic BP (mmHg)<input name="dbp" type="number" min="0" max="300" inputmode="numeric" /></label>
+              <label>Potassium (mEq/L)<input name="potassium" type="number" min="0" step="0.1" inputmode="decimal" /></label>
+              <label>BUN (mg/dL)<input name="bun" type="number" min="0" step="0.1" inputmode="decimal" /></label>
+              <label class="wide">Current medicines (comma separated)<input name="medicines" placeholder="Enter recorded medicines" /></label>
+              <div class="actions wide"><button class="button primary" type="submit">Save results</button></div>
+            </form>
+            <p class="form-message" id="results-status" role="status" aria-live="polite"></p>
+          </section>
+
+          <section class="panel">
+            <div class="section-head"><div><h2>Doctor notes</h2><p>Save notes before completing the consultation.</p></div>
+              <button class="button secondary" id="draft-btn" type="button">Draft summary</button></div>
+            <label for="notes" class="sr-only">Doctor consultation notes</label><textarea class="notes" id="notes" placeholder="Enter consultation notes…"></textarea>
+            <p class="notice">Drafts and guideline results are decision-support content. Review and edit before saving; the clinician remains responsible for decisions.</p>
+            <div class="actions">
+              <button class="button secondary" id="save-notes" type="button">Save notes</button>
+              <button class="button primary" id="complete" type="button">Complete consultation</button>
+            </div>
+            <p class="form-message" id="save-status" role="status" aria-live="polite"></p>
+          </section>
+        </div>
+
+        <div>
+          <section class="panel">
+            <div class="section-head"><div><h2>Care gaps</h2><p>Suggestions from KDIGO-based rules. You decide.</p></div><span class="count-pill" id="flag-count"></span></div>
+            <div id="flags" aria-live="polite"></div>
+            <div class="notice">Each suggestion names its source (KDIGO 2024 CKD, 2022 Diabetes in CKD or 2021 Blood Pressure in CKD). A source marked "Project rule" is not in the guideline text and should be verified. Not covered yet: KFRE-based referral, ACR doubling, four or more BP drugs, hematuria.</div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head"><div><h2>Screening model</h2><p>For patients with no kidney labs: should we test?</p></div></div>
+            <div id="screen-banner" class="notice" hidden></div>
+            <form id="screen-form" class="form-grid compact">
+              <label>Age<input name="age" type="number" min="0" max="130" /></label>
+              <label>Sex<select name="sex"><option value="">?</option><option value="F">Female</option><option value="M">Male</option></select></label>
+              <label>BMI<input name="bmi" type="number" min="0" max="150" step="0.1" /></label>
+              <label>Diabetes<select name="diabetes"><option value="N">No</option><option value="Y">Yes</option></select></label>
+              <label>Systolic BP<input name="sbp" type="number" /></label>
+              <label>Diastolic BP<input name="dbp" type="number" /></label>
+              <label>BUN (mg/dL)<input name="bun" type="number" step="0.1" /></label>
+              <label>Uric acid (mg/dL)<input name="uric_acid" type="number" step="0.1" /></label>
+              <label>Calcium (mg/dL)<input name="calcium" type="number" step="0.1" /></label>
+              <label>Serum albumin (g/dL)<input name="albumin" type="number" step="0.1" /></label>
+              <div class="actions wide"><button class="button primary" type="submit">Run screening</button></div>
+            </form>
+            <div id="screen-result" aria-live="polite"></div>
+          </section>
+
+          <section class="panel" id="pipeline-panel" aria-labelledby="pipe-h">
+            <div class="section-head"><div><h2 id="pipe-h">Agent workspace</h2><p>Four agents run in order and build one report. Everything is a draft for you to review. Guideline text comes from the loaded KDIGO documents.</p></div><span class="count-pill" id="pipe-time">not run yet</span></div>
+            <ol class="pl-flow" id="pipe-flow" aria-label="Agent order"></ol>
+            <div class="actions agent-actions"><button class="button primary" id="pipe-run" type="button">Run the four agents <span aria-hidden="true">→</span></button><button class="button secondary" id="pipe-notes" type="button" disabled>Add draft summary to notes</button></div>
+            <div id="pipe-out" aria-live="polite"></div>
+          </section>
+
+          <section class="panel" id="agent-panel">
+            <div class="section-head"><div><h2>Agent briefing</h2><p>The agent picks read-only tools, writes a short briefing, and a separate plain-code checker verifies it.</p></div><span class="count-pill" id="agent-brain">not run yet</span></div>
+            <div class="actions agent-actions"><button class="button primary" id="agent-run" type="button">Run agent for this patient <span aria-hidden="true">→</span></button></div>
+            <div id="agent-out" aria-live="polite"><p class="muted" style="margin:10px 0 0">No briefing yet. The agent only reads; it never changes the record.</p></div>
+          </section>
+
+          <section class="panel" id="rag-panel">
+            <div class="section-head"><div><h2>Guideline assistant</h2><p>Finds the passages closest to your question in the loaded KDIGO text, with document and page.</p></div><span class="count-pill" id="rag-mode"></span></div>
+            <form id="rag-form">
+              <label for="rag-question">Ask a question<textarea id="rag-question" rows="2" placeholder="Ask a question about a guideline topic…"></textarea></label>
+              <div class="example-chips" id="rag-examples" aria-label="Example questions">
+                <button type="button" class="example-chip">How often should GFR and albuminuria be monitored?</button>
+                <button type="button" class="example-chip">When should metformin be stopped?</button>
+                <button type="button" class="example-chip">What blood pressure target is recommended in CKD?</button>
+              </div>
+              <button class="button primary" type="submit" style="margin-top: 12px">Search guidelines <span aria-hidden="true">→</span></button>
+            </form>
+            <div id="rag-answer" role="status" aria-live="polite"><p class="muted" style="margin:14px 0 0">Nothing asked yet.</p></div>
+            <p class="field-hint">Search is by meaning when the embedding model is installed, otherwise by keywords. Each result shows its document and page label, for example "KDIGO 2024 CKD · S197". Publication dates and links are not returned by the service.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<a class="skip-link" href="#workspace-main">Skip to workspace</a>
+<script src="/js/api.js"></script>
+<script src="/js/doctor.js"></script>
+</body>
+</html>

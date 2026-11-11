@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073f35">
+  <meta name="description" content="RenalCare reception dashboard for patient intake, queue management, clinical data collection, and doctor handoff.">
+  <title>Reception Dashboard | RenalCare</title>
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/css/reception-dashboard.css">
+   <link rel="stylesheet" href="/css/review-submit.css">
+</head>
+<body class="rc-reception-dashboard">
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="rd-background-effects" aria-hidden="true">
+  <span class="rd-bg-orb rd-bg-orb-one"></span>
+  <span class="rd-bg-orb rd-bg-orb-two"></span>
+  <span class="rd-bg-orb rd-bg-orb-three"></span>
+  <span class="rd-bg-grid"></span>
+</div>
+
+<div class="rd-shell">
+  <aside class="rd-sidebar" id="rd-sidebar" aria-label="Reception navigation">
+      <a class="rd-brand" href="/index.html" aria-label="RenalCare home">
+        <span class="rd-brand-mark" aria-hidden="true">+</span>
+        <span>Renal<span>Care</span></span>
+      </a>
+
+      <div class="rd-workspace-label">RECEPTION WORKSPACE</div>
+
+      <nav class="rd-nav">
+        <a class="rd-nav-link is-active" href="/reception.html">
+          <span class="rd-nav-icon">▦</span><span>Dashboard</span>
+        </a>
+        <a class="rd-nav-link" href="/patient-search.html">
+          <span class="rd-nav-icon">⌕</span><span>Patients</span>
+        </a>
+       <a class="rd-nav-link" href="/queue-workflow.html">
+          <span>☷</span> Queue &amp; Workflow
+        </a>
+           
+       <a class="rd-nav-link" href="/clinical-data-entry.html">
+          <span class="rd-nav-icon">▤</span><span>Clinical data entry</span>
+        </a>
+        <a class="rd-nav-link" href="/reports-documents.html">
+          <span class="rd-nav-icon">▧</span><span>Reports &amp; documents</span>
+        </a>
+        <a class="rd-nav-link" href="/review-submit.html" aria-current="page">
+          <span class="rd-nav-icon">✓</span><span>Review &amp; submit</span>
+        </a>
+      </nav>
+
+      <div class="rd-sidebar-help">
+        <span class="rd-help-icon">?</span>
+        <div>
+         <strong>Before submitting</strong>
+        <p>Verify patient identity, measurement dates, units and source reports.</p>
+        </div>
+      </div>
+   
+
+      <a class="rd-signout" href="/reception-login.html">
+        <span aria-hidden="true">↪</span> Sign out
+      </a>
+    </aside>
+
+
+  <div class="rd-main-column">
+    <header class="rd-topbar">
+      <button class="rd-menu-toggle" id="rd-menu-toggle"
+              type="button" aria-label="Open navigation"
+              aria-expanded="false" aria-controls="rd-sidebar">
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <div class="rd-breadcrumb">
+        <span>Reception</span>
+        <span aria-hidden="true">/</span>
+        <strong>Dashboard</strong>
+      </div>
+
+      <div class="rd-topbar-right">
+        <label class="rd-top-search" for="global-search">
+          <span aria-hidden="true">⌕</span>
+          <input id="global-search" type="search"
+                 placeholder="Search patient name or ID"
+                 aria-label="Search patient name or ID"
+                 autocomplete="off">
+          <kbd>Enter</kbd>
+        </label>
+
+        <div class="rd-profile">
+          <span class="rd-avatar" id="rd-avatar" aria-hidden="true">RS</span>
+          <span class="rd-profile-copy">
+            <strong id="rd-staff-name">Reception staff</strong>
+            <small>Reception workspace</small>
+          </span>
+          <a class="rd-account-link" href="/reception-account.html"
+             aria-label="My account" title="My account">⚙</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="rd-content" id="main-content">
+      <section class="rd-welcome" aria-labelledby="welcome-heading">
+        <div class="rd-welcome-copy">
+          <span class="rd-eyebrow">
+            <span class="rd-live-dot" aria-hidden="true"></span>
+            PATIENT INTAKE &amp; CARE COORDINATION
+          </span>
+
+          <h1 id="welcome-heading">Good day. Let's keep care moving.</h1>
+
+          <p>
+            Manage today's patient queue, record available clinical information,
+            and prepare complete records for the doctor's review.
+          </p>
+
+          <div class="rd-welcome-actions">
+            <a class="rd-button rd-button-light" href="/patient-search.html">
+              Find a patient <span aria-hidden="true">→</span>
+            </a>
+            <a class="rd-button rd-button-outline" href="/queue-workflow.html">
+              View queue <span aria-hidden="true">↗</span>
+            </a>
+            <span class="rd-secure-note">
+              <span aria-hidden="true">✓</span> Confidential patient workflow
+            </span>
+          </div>
+        </div>
+
+        <div class="rd-date-chip">
+          <span aria-hidden="true">▣</span>
+          <span id="today-date">Today</span>
+        </div>
+
+        <div class="rd-orbit rd-orbit-one" aria-hidden="true"></div>
+        <div class="rd-orbit rd-orbit-two" aria-hidden="true"></div>
+      </section>
+
+      <section class="rd-section rd-quick-section"
+               aria-labelledby="quick-actions-heading">
+        <div class="rd-section-heading">
+          <div>
+            <span class="rd-step-label">WORKSPACE SHORTCUTS</span>
+            <h2 id="quick-actions-heading">What would you like to do?</h2>
+          </div>
+          <p>Choose the next step in the patient workflow.</p>
+        </div>
+
+        <div class="rd-action-grid">
+          <a class="rd-action-card rd-action-primary" href="/patient-search.html">
+            <span class="rd-action-icon" aria-hidden="true">⌕</span>
+            <span class="rd-action-text">
+              <strong>Find or register a patient</strong>
+              <small>Search existing records first, then continue a follow-up or register a new patient through the supported workflow.</small>
+              <span class="rd-action-cta">Open patients <b aria-hidden="true">→</b></span>
+            </span>
+            <span class="rd-card-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="rd-action-card" href="/queue-workflow.html">
+            <span class="rd-action-icon rd-icon-teal" aria-hidden="true">☷</span>
+            <span class="rd-action-text">
+              <strong>Manage patient queue</strong>
+              <small>Review available queue records and the visit statuses reported by the backend.</small>
+              <span class="rd-action-cta">Open queue &amp; workflow <b aria-hidden="true">→</b></span>
+            </span>
+            <span class="rd-card-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="rd-action-card" href="/clinical-data-entry.html">
+            <span class="rd-action-icon rd-icon-blue" aria-hidden="true">▤</span>
+            <span class="rd-action-text">
+              <strong>Record clinical information</strong>
+              <small>Capture available measurements with their dates, units and source details for the current visit.</small>
+              <span class="rd-action-cta">Enter visit data <b aria-hidden="true">→</b></span>
+            </span>
+            <span class="rd-card-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="rd-action-card" href="/reports-documents.html">
+            <span class="rd-action-icon rd-icon-purple" aria-hidden="true">▧</span>
+            <span class="rd-action-text">
+              <strong>Check reports and data readiness</strong>
+              <small>Review available laboratory documents and identify missing, inconsistent or unverified information.</small>
+              <span class="rd-action-cta">Check records <b aria-hidden="true">→</b></span>
+            </span>
+            <span class="rd-card-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="rd-action-card" href="/review-submit.html">
+            <span class="rd-action-icon rd-icon-amber" aria-hidden="true">➤</span>
+            <span class="rd-action-text">
+              <strong>Prepare doctor handoff</strong>
+              <small>Review visit information and prepare it for clinical review through the supported backend workflow.</small>
+              <span class="rd-action-cta">Review visit <b aria-hidden="true">→</b></span>
+            </span>
+            <span class="rd-card-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="rd-section rd-overview-section"
+               aria-labelledby="overview-heading">
+        <div class="rd-section-heading">
+          <div>
+            <span class="rd-step-label">LIVE WORKFLOW OVERVIEW</span>
+            <h2 id="overview-heading">Today's queue</h2>
+          </div>
+          <span class="rd-data-note">Counts use data returned by the connected queue endpoint.</span>
+        </div>
+
+        <div class="rd-stat-grid">
+          <article class="rd-stat-card">
+            <span class="rd-stat-icon rd-stat-green" aria-hidden="true">♙</span>
+            <div class="rd-stat-label">Queue records</div>
+            <div class="rd-stat-value" data-stat="checked-in" aria-live="polite">—</div>
+            <div class="rd-stat-foot">Records returned by the queue</div>
+          </article>
+
+          <article class="rd-stat-card">
+            <span class="rd-stat-icon rd-stat-amber" aria-hidden="true">◷</span>
+            <div class="rd-stat-label">Waiting / intake</div>
+            <div class="rd-stat-value" data-stat="intake" aria-live="polite">—</div>
+            <div class="rd-stat-foot">Recognized waiting or intake statuses only</div>
+          </article>
+
+          <article class="rd-stat-card">
+            <span class="rd-stat-icon rd-stat-blue" aria-hidden="true">✓</span>
+            <div class="rd-stat-label">Needs verification</div>
+            <div class="rd-stat-value" data-stat="verification" aria-live="polite">—</div>
+            <div class="rd-stat-foot">Based on recognized backend statuses</div>
+          </article>
+
+          <article class="rd-stat-card">
+            <span class="rd-stat-icon rd-stat-purple" aria-hidden="true">➤</span>
+            <div class="rd-stat-label">Doctor review</div>
+            <div class="rd-stat-value" data-stat="doctor-review" aria-live="polite">—</div>
+            <div class="rd-stat-foot">Based on submitted/review statuses</div>
+          </article>
+        </div>
+      </section>
+
+      <div class="rd-lower-grid">
+        <section class="rd-panel" aria-labelledby="workflow-heading">
+          <div class="rd-panel-heading">
+            <div>
+              <span class="rd-step-label">RECEPTION WORKFLOW</span>
+              <h2 id="workflow-heading">From intake to doctor review</h2>
+            </div>
+          </div>
+
+          <ol class="rd-workflow">
+            <li>
+              <span class="rd-workflow-number">01</span>
+              <div>
+                <strong>Identify the patient</strong>
+                <p>Search existing records before creating a new patient entry.</p>
+              </div>
+            </li>
+            <li>
+              <span class="rd-workflow-number">02</span>
+              <div>
+                <strong>Check queue position and visit status</strong>
+                <p>Use the queue records returned by the backend. Do not infer completion from missing records.</p>
+              </div>
+            </li>
+            <li>
+              <span class="rd-workflow-number">03</span>
+              <div>
+                <strong>Record the visit</strong>
+                <p>Enter available patient information and dated measurements.</p>
+              </div>
+            </li>
+            <li>
+              <span class="rd-workflow-number">04</span>
+              <div>
+                <strong>Verify source information</strong>
+                <p>Check dates, units, missing values and laboratory documents.</p>
+              </div>
+            </li>
+            <li>
+              <span class="rd-workflow-number">05</span>
+              <div>
+                <strong>Hand off for clinical review</strong>
+                <p>The doctor remains responsible for diagnosis and care decisions.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="rd-panel" aria-labelledby="queue-visual-heading">
+          <div class="rd-panel-heading">
+            <div>
+              <span class="rd-step-label">QUEUE STATUS</span>
+              <h2 id="queue-visual-heading">Visit status overview</h2>
+            </div>
+            <span class="rd-live-label"><span></span> Backend data</span>
+          </div>
+
+          <div id="queue-chart" class="rd-queue-chart"
+               role="img" aria-label="Visit status counts from the backend">
+            <p class="rd-empty-chart">
+              Queue status visualization will appear when supported queue data is available.
+            </p>
+          </div>
+
+          <p class="rd-chart-note">
+            This chart describes operational visit statuses only. It is not a CKD diagnosis, risk score or clinical prediction.
+          </p>
+        </section>
+      </div>
+
+      <section class="rd-panel rd-queue-panel" id="queue-patients"
+               aria-labelledby="queue-patients-heading">
+        <div class="rd-panel-heading rd-queue-panel-heading">
+          <div>
+            <span class="rd-step-label">PATIENT QUEUE</span>
+            <h2 id="queue-patients-heading">Patients and visit progress</h2>
+            <p class="rd-panel-subtitle">Only records returned by the existing queue API are shown.</p>
+          </div>
+          <a class="rd-button rd-button-dark" href="/queue-workflow.html">
+            Full queue <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="rd-queue-legend" aria-label="Queue status guide">
+          <span><i class="rd-legend-dot rd-legend-waiting"></i> Waiting / intake</span>
+          <span><i class="rd-legend-dot rd-legend-progress"></i> In progress</span>
+          <span><i class="rd-legend-dot rd-legend-review"></i> Doctor review</span>
+          <span><i class="rd-legend-dot rd-legend-complete"></i> Completed (if returned)</span>
+        </div>
+
+        <div id="rd-patient-queue" class="rd-patient-queue" aria-live="polite">
+          <div class="rd-queue-loading">
+            <span class="rd-loading-spinner" aria-hidden="true"></span>
+            <span>Loading queue records…</span>
+          </div>
+        </div>
+
+        <p class="rd-chart-note">
+          A patient is shown as completed only if the backend explicitly returns a recognized completed status.
+          If the queue endpoint returns only active visits, completed visits need a separate backend history endpoint.
+        </p>
+      </section>
+
+      <section class="rd-panel rd-activity-panel" aria-labelledby="activity-heading">
+        <div class="rd-panel-heading">
+          <div>
+            <span class="rd-step-label">RECENT WORK</span>
+            <h2 id="activity-heading">Recent visit activity</h2>
+          </div>
+          <a class="rd-text-link" href="/patient-search.html">
+            Find a patient <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="rd-empty-state" id="activity-empty">
+          <span class="rd-empty-icon" aria-hidden="true">▤</span>
+          <strong>Recent activity is not connected yet</strong>
+          <p>This section will display real visit activity when an appropriate backend endpoint is available. No sample patient records are shown.</p>
+        </div>
+
+        <div class="rd-search-feedback" id="search-feedback"
+             role="status" aria-live="polite"></div>
+      </section>
+
+      <footer class="rd-footer">
+        <span>© RenalCare · CKD clinical decision-support system</span>
+        <span>Protect patient confidentiality at all times.</span>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<div class="rd-overlay" id="rd-overlay" hidden></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/reception-dashboard.js" defer></script>
+</body>
+</html>
